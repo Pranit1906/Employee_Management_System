@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <title>Hierarchy Page</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+    <h1>Employee Hierarchy Page </h1>
+    <h2>{{ department.name }} Employee Hierarchy</h2>
+
+    <h3 class="text-center">Manager:</h3>
+    {% if hierarchy.Manager %}
+    <h5 class="text-center"> {{ hierarchy.Manager.name }} ({{ hierarchy.Manager.designation }})</h5><br>
+    {% else %}
+    <h5 class="text-center">  No manager assigned.</h5><br>
+    {% endif %}
+  
+    <h3 class="text-center">Team Leads:</h3>
+    {% if hierarchy.TL %}
+      {% for team_lead in hierarchy.TL %}
+      <h5 class="text-center">{{ team_lead.name }} ({{ team_lead.designation }})</h5><br>
+        <h3 class="text-center">Associates:</h3>
+        {% if hierarchy.Associate.team_lead %}
+          <ul class="text-center">
+            {% for associate in hierarchy.Associate.team_lead %}
+              <li>{{ associate.name }} ({{ associate.designation }})</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+        <h5 class="text-center"> No associates under this team lead.</h5><br>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+    <h5 class="text-center">No team leads assigned.</h5><br>
+    {% endif %}
+
+    
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
