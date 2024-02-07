@@ -129,8 +129,9 @@ def Delete_Department(request,id):
 def department_hierarchy(request, id):
     department = Department.objects.get(pk=id)
     hierarchy = department.get_employee_hierarchy()
-    print('department:',department, 'hierarchy :',hierarchy)
+    #print('department:',department, 'hierarchy :',hierarchy)
     return render(request, 'department_hierarchy.html', {'department': department, 'hierarchy': hierarchy})
+
 
 
 # ---------------------------------------------   SALARY SECTION   ----------------------------------------------------------------------
@@ -204,7 +205,7 @@ def Salary_Report(request):
 
         salary_report_data = calculate_department_wise_salary(start_date, end_date)
 
-        return render(request, 'salary_report.html', {'salary_report_data': salary_report_data, 'start_date': start_date, 'end_date': end_date})
+        return render(request, 'salary_report.html', locals())
     else:
         form = ReportForm()
     
@@ -218,6 +219,7 @@ def calculate_department_wise_salary(start_date, end_date):
     salary_report_data = Employee_Salary.objects.filter(
         from_Date__gte=start_date,
         till_Date__lte=end_date
-    ).values('employee__department__name').annotate(total_salary_cost=models.Sum('salary'))
-    print("salary_report_data :",salary_report_data)
+    ).values('employee__departments__name','employee__designation').annotate(total_salary_cost=models.Sum('salary')).order_by('-total_salary_cost')
+    # print("salary_report_data :",salary_report_data)
     return salary_report_data
+

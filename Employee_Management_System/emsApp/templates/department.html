@@ -15,7 +15,7 @@
                 <th>Name</th>
                 <th>Manager</th>
                 <th>Floor</th>
-                <th colspan="2">Action</th>
+                <th colspan="3">Action</th>
             </tr>
             {% for dept in department %}
                 <tr>
@@ -31,6 +31,9 @@
                             {% csrf_token %}
                             <input type="submit" value="Delete" class="btn1 btn btn-danger ">
                         </form>
+                    </td>
+                    <td>
+                        <a class="btn btn-warning" href="{% url 'department_hierarchy' dept.id %} ">Hierarchy Check</a>
                     </td>
                 </tr>
             {% endfor %}

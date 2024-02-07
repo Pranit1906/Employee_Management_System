@@ -7,11 +7,11 @@
 </head>
 <body>
 
-<h2>Salary Report</h2>
-<form method="post" action="{% url 'salary-report' %}">
+<h2 class="text-center text-warning bg-light fs-1">Salary Report</h2>
+<form method="post" action="{% url 'salary-report' %}" class="text-center border shadow p-4 mx-2">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">Generate Report</button>
+  <button type="submit" class="btn btn-success">Generate Report</button>
 </form><br>
 
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
