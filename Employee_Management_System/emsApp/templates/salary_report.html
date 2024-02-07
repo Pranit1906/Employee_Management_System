@@ -12,14 +12,12 @@
   <table class="table table-striped table-hover table-light">
       <tr>
         <th>Department</th>
-        <th>Designation</th>
         <th>Total Salary Cost</th>
       </tr>
 
       {% for entry in salary_report_data %}
         <tr>
           <td>{{ entry.employee__departments__name }}</td>
-          <td>{{ entry.employee__designation }}</td>
           <td>{{ entry.total_salary_cost }}</td>
         </tr>
       {% endfor %}

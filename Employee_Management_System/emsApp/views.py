@@ -219,7 +219,7 @@ def calculate_department_wise_salary(start_date, end_date):
     salary_report_data = Employee_Salary.objects.filter(
         from_Date__gte=start_date,
         till_Date__lte=end_date
-    ).values('employee__departments__name','employee__designation').annotate(total_salary_cost=models.Sum('salary')).order_by('-total_salary_cost')
+    ).values('employee__departments__name').annotate(total_salary_cost=models.Sum('salary')).order_by('-total_salary_cost')
     # print("salary_report_data :",salary_report_data)
     return salary_report_data
 
